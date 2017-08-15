@@ -1,0 +1,734 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="数据结构,算法,图," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="概述今天花了点时间，将数据结构中比较经典的图的基本应用用Java实现了一下，记录一下。因为觉得图的数据结构是比较经典的。其实，主要是好像面试似乎会弄得很多。准备一点也好。数据结构里面，图的存储方式其实是有很多的。在以前考408的时候，复习了的就有四种，分别是邻接矩阵法，邻接表法，十字链表法和邻接多重法。不过今天只准备实现两种最常用的邻接矩阵和邻接表法。因为这两种是用的最频繁的，难度其实也比另外两种">
+<meta name="keywords" content="数据结构,算法,图">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java实现图的存储与基本操作">
+<meta property="og:url" content="http://yoursite.com/2016/09/26/JavaхоЮчО░хЫ╛чЪДхнШхВиф╕ОхЯ║цЬмцУНф╜Ь/index.html">
+<meta property="og:site_name" content="云之遥">
+<meta property="og:description" content="概述今天花了点时间，将数据结构中比较经典的图的基本应用用Java实现了一下，记录一下。因为觉得图的数据结构是比较经典的。其实，主要是好像面试似乎会弄得很多。准备一点也好。数据结构里面，图的存储方式其实是有很多的。在以前考408的时候，复习了的就有四种，分别是邻接矩阵法，邻接表法，十字链表法和邻接多重法。不过今天只准备实现两种最常用的邻接矩阵和邻接表法。因为这两种是用的最频繁的，难度其实也比另外两种">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://p1.bqimg.com/1949/7a2cd5d6689c3529.png">
+<meta property="og:image" content="http://i1.piimg.com/1949/b3b579186a1b3602.png">
+<meta property="og:image" content="http://i1.piimg.com/1949/24e634005a53c07d.png">
+<meta property="og:image" content="http://i1.piimg.com/1949/063a13020debdabc.png">
+<meta property="og:image" content="http://i1.piimg.com/1949/f6671bc5ecda58ce.png">
+<meta property="og:updated_time" content="2017-08-15T08:53:26.500Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java实现图的存储与基本操作">
+<meta name="twitter:description" content="概述今天花了点时间，将数据结构中比较经典的图的基本应用用Java实现了一下，记录一下。因为觉得图的数据结构是比较经典的。其实，主要是好像面试似乎会弄得很多。准备一点也好。数据结构里面，图的存储方式其实是有很多的。在以前考408的时候，复习了的就有四种，分别是邻接矩阵法，邻接表法，十字链表法和邻接多重法。不过今天只准备实现两种最常用的邻接矩阵和邻接表法。因为这两种是用的最频繁的，难度其实也比另外两种">
+<meta name="twitter:image" content="http://p1.bqimg.com/1949/7a2cd5d6689c3529.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Java实现图的存储与基本操作 | 云之遥 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?88f3ed4bb92a0cc83cdf7ffa3f7bc096";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">云之遥</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Java实现图的存储与基本操作
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-26T14:03:10+08:00" content="2016-09-26">
+              2016-09-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/数据结构/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/26/JavaхоЮчО░хЫ╛чЪДхнШхВиф╕ОхЯ║цЬмцУНф╜Ь/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/09/26/JavaхоЮчО░хЫ╛чЪДхнШхВиф╕ОхЯ║цЬмцУНф╜Ь/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p>今天花了点时间，将数据结构中比较经典的图的基本应用用Java实现了一下，记录一下。因为觉得图的数据结构是比较经典的。其实，主要是好像面试似乎会弄得很多。准备一点也好。<br>数据结构里面，图的存储方式其实是有很多的。在以前考408的时候，复习了的就有四种，分别是邻接矩阵法，邻接表法，十字链表法和邻接多重法。不过今天只准备实现两种最常用的邻接矩阵和邻接表法。因为这两种是用的最频繁的，难度其实也比另外两种小。<br><a id="more"></a></p>
+<h4 id="邻接矩阵"><a href="#邻接矩阵" class="headerlink" title="邻接矩阵"></a>邻接矩阵</h4><p>所谓的邻接矩阵存储，就是用一个一维数组来存储图中顶点的信息，而用一个二维数据存储图中边的信息(也就是各个顶点之间的邻接关系)，存储顶点之间邻接关系的二维数组称之为邻接矩阵。<br>以下用一个无向图的邻接矩阵作为示例:<br><img src="http://p1.bqimg.com/1949/7a2cd5d6689c3529.png" alt="Markdown"></p>
+<p>很明显的能看出来该无向图的邻接矩阵是一个对称矩阵。其实这也是很好理解的。从V0到V1有距离必然意味着V1到V0是有距离的。</p>
+<p>而有向图的邻接矩阵可看如下图所示:<br><img src="http://i1.piimg.com/1949/b3b579186a1b3602.png" alt="Markdown"></p>
+<p>可以看出来有向图其实并不是对称的。另外如果这个有向图是有权值的话，矩阵中的数字1也是可以替换成其他的数字的。</p>
+<p>我写了一个AMGraph的实现类，主要是邻接矩阵的生成初始化以及简单的插入删除边和节点的操作。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.*;</div><div class="line"><span class="comment">/**</span></div><div class="line"> * <span class="doctag">@author</span> WorthyYao</div><div class="line"> * <span class="doctag">@date</span> 2016/9/26</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AMGraph</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> ArrayList vertexList;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[][] edges;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> numsEdge;</div><div class="line">    <span class="comment">//初始化邻接矩阵</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AMGraph</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</div><div class="line">        edges=<span class="keyword">new</span> <span class="keyword">int</span>[n][n];</div><div class="line">        vertexList=<span class="keyword">new</span> ArrayList(n);</div><div class="line">        numsEdge=<span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//返回图中点的数目</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getNumOfVertix</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> vertexList.size();</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//返回图中边的条数</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getNumOfEdge</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> numsEdge;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//增加图中的点</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insertVertex</span><span class="params">(Object vertex)</span> </span>&#123;</div><div class="line">        vertexList.add(vertexList.size(),vertex);</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//在图中插入一条边</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insertEdge</span><span class="params">(<span class="keyword">int</span> v1,<span class="keyword">int</span> v2,<span class="keyword">int</span> weight)</span></span>&#123;</div><div class="line">        edges[v1][v2]=weight;</div><div class="line">        numsEdge++;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//在图中删除一条边</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">removeVertix</span><span class="params">(<span class="keyword">int</span> v1,<span class="keyword">int</span> v2)</span></span>&#123;</div><div class="line">        edges[v1][v2]=<span class="number">0</span>;</div><div class="line">        numsEdge--;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="邻接表"><a href="#邻接表" class="headerlink" title="邻接表"></a>邻接表</h4><p>在一个图是稀疏图的时候，使用邻接矩阵来表示一个图其实是很浪费存储空间的。咋办，邻接表法主要就是用来解决这个问题的。<br>所谓的邻接表，其实是将图中所有顶点组合起来做成一个单链表。而第i个单链表中的结点则表示依附于顶点Vi的边，这样的链表就可以称之为顶点Vi的边表。比如上面那个无向图的邻接表就可以如下所示:</p>
+<p><img src="http://i1.piimg.com/1949/24e634005a53c07d.png" alt="Markdown"></p>
+<h4 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h4><p>给出一个有向图如下所示，可以写出他的邻接矩阵和邻接表的实现方法以及邻接矩阵的插入删除操作。</p>
+<p><img src="http://i1.piimg.com/1949/063a13020debdabc.png" alt="Markdown"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * <span class="doctag">@author</span> WorthyYao</div><div class="line"> * <span class="doctag">@date</span> 2016/9/26</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        <span class="comment">//初始化图</span></div><div class="line">        AMGraph amg=<span class="keyword">new</span> AMGraph(<span class="number">4</span>);</div><div class="line">        <span class="comment">//初始化四个节点</span></div><div class="line">        String[] vertexs=&#123;<span class="string">"v1"</span>,<span class="string">"v2"</span>,<span class="string">"v3"</span>,<span class="string">"v4"</span>&#125;;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;vertexs.length;i++)&#123;</div><div class="line">            amg.insertVertex(vertexs[i]);</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//插入四条边</span></div><div class="line">        amg.insertEdge(<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>);</div><div class="line">        amg.insertEdge(<span class="number">0</span>,<span class="number">2</span>,<span class="number">5</span>);</div><div class="line">        amg.insertEdge(<span class="number">2</span>,<span class="number">3</span>,<span class="number">8</span>);</div><div class="line">        amg.insertEdge(<span class="number">3</span>,<span class="number">0</span>,<span class="number">7</span>);</div><div class="line">        System.out.println(<span class="string">"图中顶点数为: "</span>+amg.getNumOfVertix());</div><div class="line">        System.out.println(<span class="string">"图中边的数目为: "</span>+amg.getNumOfEdge());</div><div class="line">        amg.removeVertix(<span class="number">2</span>,<span class="number">3</span>);</div><div class="line">        System.out.println(<span class="string">"在删除一条边后的总边数为: "</span>+amg.getNumOfEdge());</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果如下:</p>
+<p><img src="http://i1.piimg.com/1949/f6671bc5ecda58ce.png" alt="Markdown"></p>
+<p>而邻接表的矩阵初始化则如下代码所示:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * <span class="doctag">@author</span> WorthyYao</div><div class="line"> * <span class="doctag">@date</span> 2016/9/26</div><div class="line"> */</div><div class="line"><span class="comment">//邻接表中表对应的链表的结构</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Enode</span></span>&#123;</div><div class="line">    <span class="comment">//初始化邻接表中顶点的名称以及值</span></div><div class="line">    String vertex;</div><div class="line">    <span class="keyword">int</span> value;</div><div class="line">    Enode next;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Vnode</span></span>&#123;</div><div class="line">    String vertex;</div><div class="line">    Enode firstEdge;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//邻接表中图的存储</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ALGraph</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        String[] vertexs=&#123;<span class="string">"v1"</span>,<span class="string">"v2"</span>,<span class="string">"v3"</span>,<span class="string">"v4"</span>&#125;;</div><div class="line">        Vnode[] vers=<span class="keyword">new</span> Vnode[vertexs.length];</div><div class="line">        <span class="comment">//初始化链表</span></div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;vertexs.length;i++)&#123;</div><div class="line">            vers[i].vertex=vertexs[i];</div><div class="line">            vers[i].firstEdge=<span class="keyword">null</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//插入几条边，初始化邻接表图</span></div><div class="line">        Enode node1=<span class="keyword">new</span> Enode();</div><div class="line">        Enode node2=<span class="keyword">new</span> Enode();</div><div class="line">        Enode node3=<span class="keyword">new</span> Enode();</div><div class="line">        Enode node4=<span class="keyword">new</span> Enode();</div><div class="line">        node1.vertex=<span class="string">"v2"</span>;node1.value=<span class="number">2</span>;</div><div class="line">        node2.vertex=<span class="string">"v2"</span>;node2.value=<span class="number">5</span>;</div><div class="line">        node3.vertex=<span class="string">"v4"</span>;node1.value=<span class="number">8</span>;</div><div class="line">        node4.vertex=<span class="string">"v1"</span>;node1.value=<span class="number">7</span>;</div><div class="line">        vers[<span class="number">0</span>].firstEdge=node1;</div><div class="line">        node1.next=node2;</div><div class="line">        vers[<span class="number">2</span>].firstEdge=node3;</div><div class="line">        vers[<span class="number">3</span>].firstEdge=node4;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据结构/" rel="tag">#数据结构</a>
+          
+            <a href="/tags/算法/" rel="tag">#算法</a>
+          
+            <a href="/tags/图/" rel="tag">#图</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/22/ш┐Бчз╗хИ░coding-net/" rel="next" title="迁移到coding.net">
+                <i class="fa fa-chevron-left"></i> 迁移到coding.net
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/02/хЗачзНх╕╕чФичЪДцОТх║ПчоЧц│ХцА╗ч╗У/" rel="prev" title="几种常用的排序算法总结">
+                几种常用的排序算法总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="云之遥" />
+          <p class="site-author-name" itemprop="name">云之遥</p>
+          <p class="site-description motion-element" itemprop="description">天行健，君子以自强不息。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/worthyyao" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/yun-zhi-yao-83" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/5319379997" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#邻接矩阵"><span class="nav-number">2.</span> <span class="nav-text">邻接矩阵</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#邻接表"><span class="nav-number">3.</span> <span class="nav-text">邻接表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实现"><span class="nav-number">4.</span> <span class="nav-text">实现</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">云之遥</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'worthyyao';
+      var disqus_identifier = '2016/09/26/JavaхоЮчО░хЫ╛чЪДхнШхВиф╕ОхЯ║цЬмцУНф╜Ь/';
+      var disqus_title = "Java实现图的存储与基本操作";
+      var disqus_url = 'http://yoursite.com/2016/09/26/JavaхоЮчО░хЫ╛чЪДхнШхВиф╕ОхЯ║цЬмцУНф╜Ь/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
